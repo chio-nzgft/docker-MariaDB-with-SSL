@@ -17,5 +17,14 @@ openssl rsa -in client-key.pem -out client-key.pem
 openssl x509 -req -in client-req.pem -days 3600 -CA ca-cert.pem -CAkey ca-key.pem -set_serial 01 -out client-cert.pem
 # check key ok
 openssl verify -CAfile ca-cert.pem server-cert.pem client-cert.pem
+# ls key
+ls /etc/newcerts
+ca-cert.pem  ca-key.pem  client-cert.pem  client-key.pem  client-req.pem  server-cert.pem  server-key.pem  server-req.pem
+
+```
+
+#Run mysql docker
+```
+docker run -it --name mariadb -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql -v /etc/newcerts:/etc/newcerts -e MYSQL_DATABASE=DB -e MYSQL_USER=user -e MYSQL_PASSWORD=userpass -e MYSQL_ROOT_PASSWORD=admin echochio/alpine-mariadb
 ```
 

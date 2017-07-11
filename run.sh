@@ -85,9 +85,11 @@ if [ "$SERVER_KEY" ]; then
   export MYSQLD_SSL_CA=/etc/mysql/CA.crt
 fi
 
-sed 's/\[mysqld\]/\[mysqld\]\n\ssl-key=\/etc\/mysql\/server.key/g' /etc/mysql/my.cnf > /etc/mysql/my1.cnf
-sed 's/\[mysqld\]/\[mysqld\]\n\ssl-cert=\/etc\/mysql\/server.crt/g' /etc/mysql/my1.cnf > /etc/mysql/my.cnf
-sed 's/\[mysqld\]/\[mysqld\]\n\ssl-ca=\/etc\/mysql\/CA.crt/g' /etc/mysql/my.cnf > /etc/mysql/my1.cnf
-cp -rf /etc/mysql/my1.cnf /etc/mysql/my.cnf
+if  [ ! -e "/etc/mysql/my1.cnf" ]; then
+  sed 's/\[mysqld\]/\[mysqld\]\n\ssl-key=\/etc\/mysql\/server.key/g' /etc/mysql/my.cnf > /etc/mysql/my1.cnf
+  sed 's/\[mysqld\]/\[mysqld\]\n\ssl-cert=\/etc\/mysql\/server.crt/g' /etc/mysql/my1.cnf > /etc/mysql/my.cnf
+  sed 's/\[mysqld\]/\[mysqld\]\n\ssl-ca=\/etc\/mysql\/CA.crt/g' /etc/mysql/my.cnf > /etc/mysql/my1.cnf
+  cp -rf /etc/mysql/my1.cnf /etc/mysql/my.cnf
+fi
 
 exec /usr/bin/mysqld --user=mysql --console

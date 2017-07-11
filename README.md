@@ -33,7 +33,7 @@ docker run -it --name mariadb -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql -v /
 SERVER_KEY=$(cat -E /etc/newcerts/server-key.pem | xargs)
 SERVER_CERT=$(cat -E /etc/newcerts/server-cert.pem | xargs)
 CA_CERT=$(cat -E /etc/newcerts/ca-cert.pem | xargs)
-docker run -it --name mariadb -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql -e MYSQL_DATABASE=DB -e MYSQL_USER=user -e MYSQL_PASSWORD=userpass -e MYSQL_ROOT_PASSWORD=admin -e SERVER_KEY=$SERVER_KEY -e SERVER_CERT=$SERVER_CERT -e CA_CERT=$CA_CERT echochio/alpine-mariadb
+docker run -it echochio/alpine-mariadb --name mariadb -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql -e MYSQL_DATABASE=DB -e MYSQL_USER=user -e MYSQL_PASSWORD=userpass -e MYSQL_ROOT_PASSWORD=admin -e SERVER_KEY=$SERVER_KEY -e SERVER_CERT=$SERVER_CERT -e CA_CERT=$CA_CERT
 ```
 
 #Create user for SSL
